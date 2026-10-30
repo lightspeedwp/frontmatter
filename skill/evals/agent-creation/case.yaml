@@ -1,0 +1,79 @@
+model: claude-opus-5-5
+temperature: 0
+max_tokens: 2000
+
+inputs:
+  prompt: "Create a complete agent specification file for a 'Code Review Agent' that reviews pull requests for code quality, security, and documentation standards. The agent should:\n\n- Be placed in `.claude/agents/code-review.agent.md`\n- Have proper LightSpeed frontmatter following the unified schema\n- Include all required fields for agent type (file_type, name, description, tools)\n- Set appropriate tools: read, grep, edit\n- Include realistic agent instructions following Claude Code conventions\n- Set correct status (active), stability (stable), and domain (awesome-copilot)\n- Include version, created_date, last_updated\n- Include author and owners information\n- Set mode to \"agent\"\n- Use max 8 tags\n- Ensure frontmatter uses ISO 8601 dates (YYYY-MM-DD)\n\nThe output should be a complete, production-ready agent file that would pass `validate-agent-frontmatter.js` validation and be ready to use in the .claude/agents/ directory."
+
+criteria:
+  - |
+    Frontmatter present: Output must include valid YAML frontmatter enclosed in --- markers
+  - |
+    Required fields present: Must include file_type: agent, name, description, and tools array
+  - |
+    Date format validation: All dates (created_date, last_updated) must be ISO 8601 format (YYYY-MM-DD)
+  - |
+    Status and stability: Must have status: active and stability: stable
+  - |
+    Domain field: Must have domain: awesome-copilot
+  - |
+    Mode field: Must have mode: agent
+  - |
+    Tools array: Must include at least read, grep, and edit tools as array items
+  - |
+    Tags validation: Must have tags array with max 8 items in kebab-case format
+  - |
+    Author and owners: Must include author field and owners array with valid GitHub handles
+  - |
+    Agent instructions: Must include realistic agent instructions following Claude Code conventions below the frontmatter
+  - |
+    Version field: Must have a semantic version string (e.g., v1.0, 1.0.0)
+  - |
+    File path comment: Instructions should reference .claude/agents/code-review.agent.md or mention it's production-ready
+  - |
+    YAML syntax: Must be valid YAML that would parse without errors
+
+expected_output: |
+  ---
+  file_type: agent
+  name: Code Review Agent
+  description: Reviews pull requests for code quality, security, and documentation standards
+  version: v1.0
+  created_date: 2026-10-30
+  last_updated: 2026-10-30
+  author: Platform Team
+  owners:
+    - @code-review-team
+  status: active
+  stability: stable
+  tags: [code-review, quality, security, documentation]
+  domain: awesome-copilot
+  mode: agent
+  tools:
+    - read
+    - grep
+    - edit
+  ---
+
+  ## Overview
+
+  This agent reviews pull requests for code quality, security, and documentation standards. It analyzes changed files, identifies potential issues, and provides actionable feedback to developers.
+
+  ## Capabilities
+
+  - **Code Quality Analysis**: Identifies code smells, complexity issues, and style violations
+  - **Security Review**: Detects common security vulnerabilities and best practice violations
+  - **Documentation Check**: Ensures changes are properly documented and comments are clear
+  - **PR Metadata**: Validates PR title, description, and branch naming conventions
+
+  ## Instructions
+
+  When reviewing a pull request:
+
+  1. Use `read` to examine all changed files
+  2. Use `grep` to search for patterns and identify potential issues
+  3. Use `edit` to suggest specific improvements
+  4. Provide constructive feedback organized by category (quality, security, documentation)
+  5. Prioritize findings by severity (critical, major, minor, suggestion)
+
+  Focus on actionable feedback that helps developers learn and improve their code.

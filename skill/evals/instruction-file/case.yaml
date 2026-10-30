@@ -1,0 +1,261 @@
+model: claude-opus-5-5
+temperature: 0
+max_tokens: 4000
+
+inputs:
+  prompt: "Create a complete `.github/instructions/contribution-guidelines.md` file that documents how to contribute to the LightSpeed project. The file should:\n\n## Frontmatter Requirements\n\n1. Have complete LightSpeed instruction file frontmatter with:\n   - `file_type: instruction`\n   - Clear title and description\n   - Version tracking\n   - Created and last updated dates (ISO 8601 format: YYYY-MM-DD)\n   - Author and owner information\n   - Appropriate status and stability\n   - Relevant tags (max 8)\n   - Domain set to \"governance\"\n   - Mode set to \"instruction\"\n\n## Content Requirements\n\nInclude realistic contribution guidelines content covering:\n- Code style standards and conventions\n- Pull request process and requirements\n- Testing requirements and test coverage expectations\n- Documentation standards for code changes\n- Branch naming conventions aligned with LightSpeed strategy\n- Commit message format requirements\n- Review process and expectations\n- Common contributing gotchas and how to avoid them\n\n## Technical Requirements\n\nEnsure frontmatter:\n- Uses ISO 8601 dates (YYYY-MM-DD)\n- Has proper YAML formatting\n- Follows LightSpeed naming conventions\n- Includes all recommended fields\n- Is ready for lefthook validation\n\n## Output\n\nA complete `.github/instructions/contribution-guidelines.md` file with:\n1. Valid LightSpeed instruction frontmatter\n2. File size ~300-400 lines total\n3. Proper YAML structure\n4. Ready to pass validation scripts\n5. Includes realistic, production-ready contribution guidelines content"
+
+criteria:
+  - |
+    File type field: Must have file_type: instruction (not agent or template)
+  - |
+    Title field: Must have clear, descriptive title field
+  - |
+    Description field: Must have concise description of guidelines purpose
+  - |
+    Version field: Must have semantic version (e.g., v1.0 or 1.0.0)
+  - |
+    Date format: created_date and last_updated must be ISO 8601 (YYYY-MM-DD)
+  - |
+    Author field: Must include author name or team
+  - |
+    Owners field: Must be array with GitHub handles (- @handle format)
+  - |
+    Status field: Must be active, deprecated, draft, or experimental (lowercase)
+  - |
+    Stability field: Must be stable, experimental, or incubating (lowercase)
+  - |
+    Tags field: Must have relevant tags, max 8 items in kebab-case
+  - |
+    Domain field: Must have domain: governance
+  - |
+    Mode field: Must have mode: instruction
+  - |
+    Valid YAML: Frontmatter must be valid YAML that parses without errors
+  - |
+    Code style section: Content must include code style standards
+  - |
+    PR requirements section: Content must document pull request process
+  - |
+    Testing section: Content must cover testing requirements
+  - |
+    Documentation section: Content must explain documentation standards
+  - |
+    Branch naming section: Content must reference LightSpeed branch strategy
+  - |
+    Commit message section: Content must document commit message format
+  - |
+    Review process section: Content must explain review expectations
+  - |
+    Gotchas section: Content must include common mistakes and how to avoid them
+  - |
+    File completeness: Total file should be ~300-400 lines
+  - |
+    Production ready: Content should be realistic and actionable
+
+expected_output: |
+  ---
+  file_type: instruction
+  title: Contributing to LightSpeed
+  description: Guidelines for contributing code, documentation, and improvements to LightSpeed projects
+  version: v1.0
+  created_date: 2025-10-01
+  last_updated: 2026-10-30
+  author: LightSpeed Engineering Team
+  owners:
+    - @engineering-lead
+    - @devops-lead
+  status: active
+  stability: stable
+  tags: [contributing, guidelines, development, code-standards, collaboration]
+  domain: governance
+  mode: instruction
+  ---
+
+  # Contributing to LightSpeed
+
+  Thank you for contributing to LightSpeed! This guide will help you understand our development process, standards, and expectations.
+
+  ## Getting Started
+
+  Before you start contributing:
+  1. Fork the repository on GitHub
+  2. Clone your fork locally
+  3. Create a feature branch using our branching strategy (see below)
+  4. Read through this entire guide
+  5. Set up your development environment using project instructions
+
+  ## Code Style Standards
+
+  ### JavaScript/TypeScript
+  - Use ESLint configuration from `.eslintrc.json`
+  - Run `npm run lint` before committing
+  - Use TypeScript for new code whenever possible
+  - Prefer `const` over `let` over `var`
+  - Use arrow functions for callbacks and simple functions
+
+  ### PHP
+  - Follow WordPress coding standards
+  - Use `phpcs` with `.phpcs.xml.dist` configuration
+  - Run `composer run lint` before committing
+  - Maintain 80-character line length (soft limit)
+
+  ### General
+  - Use meaningful variable names
+  - Keep functions under 50 lines when possible
+  - Add comments only for "why", not "what"
+  - Follow DRY (Don't Repeat Yourself) principles
+
+  ## Branch Naming Strategy
+
+  Follow LightSpeed branch naming conventions:
+
+  - **Features**: `feat/description-of-feature`
+  - **Bugfixes**: `fix/description-of-bug`
+  - **Documentation**: `docs/description-of-changes`
+  - **Refactoring**: `refactor/area-being-refactored`
+  - **Performance**: `perf/performance-improvement`
+  - **Tests**: `test/test-coverage-area`
+
+  Example: `feat/user-authentication-oauth`
+
+  ## Pull Request Process
+
+  1. **Before creating a PR:**
+     - Ensure your branch is up to date with `main`
+     - Run all tests and linting locally
+     - Verify no debug code remains
+     - Add/update documentation as needed
+
+  2. **Creating the PR:**
+     - Use the provided PR template (auto-populated)
+     - Write a clear, descriptive title
+     - Link related issues with `Fixes #123`
+     - Add appropriate labels
+     - Request reviewers (at least 2 approvals required)
+
+  3. **During review:**
+     - Respond to feedback promptly
+     - Push additional commits rather than force-pushing
+     - Mark conversations as resolved when addressed
+     - Request re-review after changes
+
+  4. **Merging:**
+     - Ensure all CI checks pass
+     - Obtain required approvals
+     - Squash and merge using PR title as commit message
+     - Delete the feature branch
+
+  ## Testing Requirements
+
+  All code changes must include tests:
+
+  - **Unit tests**: For all functions and methods
+  - **Integration tests**: For API endpoints and complex workflows
+  - **E2E tests**: For critical user paths
+  - **Coverage target**: Minimum 80% code coverage
+
+  Run tests locally:
+  ```bash
+  npm test              # JavaScript/TypeScript
+  composer test         # PHP
+  npm run test:e2e      # End-to-end tests
+  ```
+
+  Tests must pass before a PR can be merged.
+
+  ## Documentation Standards
+
+  ### Code Comments
+  - Document public APIs and exported functions
+  - Explain non-obvious algorithms
+  - Update comments when changing behavior
+
+  ### Markdown Files
+  - Follow markdown linting rules
+  - Use clear headings and sections
+  - Include code examples where helpful
+  - Update related docs when adding features
+
+  ### Frontmatter
+  - Add frontmatter to all markdown files
+  - Use LightSpeed unified schema
+  - Keep `last_updated` current
+  - Include appropriate tags and domain
+
+  ## Commit Message Format
+
+  Follow conventional commits:
+
+  ```
+  type(scope): brief description
+
+  Longer description if needed, explaining the why and what.
+  Keep lines under 80 characters.
+
+  Fixes: #123
+  ```
+
+  **Types**: feat, fix, docs, style, refactor, test, perf, chore
+
+  **Examples:**
+  - `feat(auth): add OAuth provider support`
+  - `fix(api): handle null response gracefully`
+  - `docs(readme): add installation steps`
+
+  ## Code Review Process
+
+  ### As an Author
+  - Respond to all feedback constructively
+  - Ask questions if feedback is unclear
+  - Don't take feedback personally
+  - Update your PR based on review comments
+
+  ### As a Reviewer
+  - Review within 24 hours if possible
+  - Provide constructive, actionable feedback
+  - Approve only when satisfied with quality
+  - Focus on code quality, not personal style
+  - Celebrate good solutions and learning
+
+  ## Common Gotchas
+
+  ### 1. Forgetting to update tests
+  - **Problem**: Changes fail CI because tests don't cover new code
+  - **Solution**: Write tests before or immediately after code changes
+
+  ### 2. Not running linting locally
+  - **Problem**: CI fails on style issues that could be auto-fixed
+  - **Solution**: Run `npm run lint:fix` before committing
+
+  ### 3. Large, unfocused PRs
+  - **Problem**: Hard to review, slow to merge, risky to deploy
+  - **Solution**: Keep PRs focused on one feature or fix, under 400 lines
+
+  ### 4. Hardcoding configuration
+  - **Problem**: Values don't work across environments
+  - **Solution**: Use environment variables and config files
+
+  ### 5. Missing documentation
+  - **Problem**: Future developers (including you) don't understand changes
+  - **Solution**: Document your changes before requesting review
+
+  ### 6. Force-pushing to shared branches
+  - **Problem**: Collaborators lose work
+  - **Solution**: Only force-push to your own feature branches
+
+  ## Getting Help
+
+  - Check project README for setup instructions
+  - Review existing issues and PRs for similar questions
+  - Ask in team Slack channel
+  - Tag `@engineering-lead` for architectural questions
+
+  ## Recognition
+
+  Contributors are recognized in:
+  - CONTRIBUTORS.md file
+  - Release notes for significant contributions
+  - Team meetings and communications
+
+  Thank you for making LightSpeed better!
