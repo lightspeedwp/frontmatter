@@ -1,0 +1,14 @@
+name: Validate and fix broken frontmatter
+description: |
+  Test identifying multiple frontmatter errors and providing corrections.
+  The sample contains: YAML syntax errors, wrong data types, malformed arrays,
+  and unknown fields.
+
+expectations: |
+  The response should identify:
+  1. description field uses `=` instead of `:`  (YAML syntax error)
+  2. versions is a string instead of object (should be {fpt: '*'})
+  3. redirect_from is a string instead of array (should be ["/old-api-docs"])
+  4. showMiniToc is quoted "true" instead of boolean true
+  5. unknown_field is not a valid GitHub Docs field
+  6. Provide complete corrected frontmatter

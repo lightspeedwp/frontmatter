@@ -1,0 +1,15 @@
+name: Create new GitHub Docs authentication page
+description: |
+  Test creating frontmatter for a new documentation page following GitHub Docs standards
+  with all required fields, versions, redirects, and metadata configured correctly.
+
+expectations: |
+  The frontmatter should:
+  - Start and end with `---` on separate lines
+  - Include title, intro, versions (fpt, ghes, ghae), redirect_from, type, ms.topic, showMiniToc
+  - Have versions configured as objects not strings
+  - Include redirect URLs starting with /
+  - Use type: "how-to-guide" or similar value
+  - Have ms.topic set to appropriate value like "how-to"
+  - Proper YAML indentation (2 spaces)
+  - Be parseable as valid YAML

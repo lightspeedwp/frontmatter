@@ -1,0 +1,18 @@
+name: Migrate Jekyll to Project Standards frontmatter
+description: |
+  Test converting Jekyll-style frontmatter to Project Standards schema.
+  Should properly map Jekyll fields to Project Standards equivalents
+  and create valid schema-compliant frontmatter.
+
+expectations: |
+  The response should:
+  1. Create a unique kebab-case ID (e.g., db-migration-guide)
+  2. Map title directly
+  3. Convert categories to type and/or tags
+  4. Set appropriate type (guide in this case)
+  5. Set status as published (since date implies it's published)
+  6. Include modified date (2025-01-15 from original date)
+  7. Set version to 1.0 (first version)
+  8. Include author and tags
+  9. Explain the mapping between Jekyll and Project Standards fields
+  10. Valid YAML with proper indentation

@@ -1,0 +1,159 @@
+{
+  "name": "GitHub Docs Frontmatter Schema",
+  "version": "1.0",
+  "description": "YAML frontmatter schema for GitHub documentation",
+  "fields": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100,
+      "description": "Page title displayed in navigation and search results"
+    },
+    "intro": {
+      "type": "string",
+      "required": false,
+      "description": "1-2 sentence introduction, appears below title"
+    },
+    "redirect_from": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^/[a-z0-9/_-]*$"
+      },
+      "description": "Array of old URLs that should redirect to this page"
+    },
+    "versions": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "fpt": {
+          "type": "string",
+          "enum": ["*"],
+          "description": "GitHub Free Plan availability"
+        },
+        "ghes": {
+          "type": "string",
+          "pattern": "^(\\*|>=?\\d+\\.\\d+)$",
+          "description": "GitHub Enterprise Server version constraint"
+        },
+        "ghae": {
+          "type": "string",
+          "enum": ["*"],
+          "description": "GitHub AE (Azure) availability"
+        },
+        "ghec": {
+          "type": "string",
+          "enum": ["*"],
+          "description": "GitHub Enterprise Cloud availability"
+        }
+      },
+      "description": "Version availability matrix for the page"
+    },
+    "versions-en": {
+      "type": "object",
+      "description": "English versions for translated pages (same structure as versions)"
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["default", "index", "guide", "reference", "tutorial"],
+      "description": "Template layout for rendering"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["concept", "how-to-guide", "reference", "tutorial", "guide"],
+      "description": "Content type for categorization"
+    },
+    "ms.topic": {
+      "type": "string",
+      "enum": ["concept", "how-to-guide", "overview", "reference", "troubleshooting", "tutorial"],
+      "description": "Microsoft Learn content type for metadata"
+    },
+    "showMiniToc": {
+      "type": "boolean",
+      "description": "Display mini table of contents (H2/H3 headings)"
+    },
+    "map": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "TOC map group name"
+    },
+    "mapTopic": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "Topic entry name in the TOC map"
+    },
+    "hidden": {
+      "type": "boolean",
+      "description": "Hide page from search and navigation"
+    },
+    "product": {
+      "type": "string",
+      "description": "Product context (e.g., copilot, actions, codespaces)"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Required GitHub permissions"
+    },
+    "allowTitleToDifferFromFilename": {
+      "type": "boolean",
+      "description": "Allow page title to differ from filename"
+    },
+    "freeWebsiteVersion": {
+      "type": "boolean",
+      "description": "Page is available on GitHub Free website"
+    }
+  },
+  "required": ["title"],
+  "examples": [
+    {
+      "name": "Basic page",
+      "frontmatter": {
+        "title": "Getting Started",
+        "versions": {
+          "fpt": "*"
+        }
+      }
+    },
+    {
+      "name": "Full documentation page",
+      "frontmatter": {
+        "title": "API Authentication",
+        "intro": "Set up secure authentication for API requests",
+        "type": "how-to-guide",
+        "ms.topic": "how-to",
+        "versions": {
+          "fpt": "*",
+          "ghes": ">=3.0",
+          "ghae": "*"
+        },
+        "showMiniToc": true,
+        "map": "api-reference",
+        "mapTopic": "authentication"
+      }
+    },
+    {
+      "name": "Page with redirects",
+      "frontmatter": {
+        "title": "New Authentication Guide",
+        "redirect_from": [
+          "/old-auth-docs",
+          "/authentication/legacy"
+        ],
+        "versions": {
+          "fpt": "*"
+        }
+      }
+    }
+  ],
+  "validation_rules": [
+    "title must not be empty",
+    "versions must have at least one key",
+    "redirect_from URLs must start with /",
+    "showMiniToc should be false for index pages",
+    "map and mapTopic should both be present or both absent",
+    "No duplicate fields"
+  ]
+}
