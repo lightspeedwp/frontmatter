@@ -1,0 +1,344 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+# CodeRabbit configuration for lightspeedwp/frontmatter skill repository
+# This is a focused configuration for a CLI tool that manages YAML frontmatter
+# validation and metadata standards across LightSpeedWP projects.
+#
+# Inheritance: Extends from .github repository for org-wide standards
+# Profile: Default (thorough review) for quality control
+# Focus: Skill documentation, validation logic, test coverage, and schema compliance
+
+inheritance: true
+language: en-GB
+
+reviews:
+  # === Review Workflow Settings ===
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+
+  # === Path Filters (Exclude from Review) ===
+  # Exclude generated, vendored, and non-source files
+  path_filters:
+    - '!node_modules/**'
+    - '!dist/**'
+    - '!build/**'
+    - '!coverage/**'
+    - '!*.log'
+    - '!package-lock.json'
+    - '!.git/**'
+
+  # === Auto Review Settings ===
+  auto_review:
+    enabled: true
+    drafts: false
+    auto_incremental_review: false
+    # Review all PRs (frontmatter is a core skill repo)
+    base_branches:
+      - '.*'
+    # Skip automated dependency updates (human review handles these)
+    ignore_usernames:
+      - 'dependabot[bot]'
+      - 'renovate[bot]'
+
+  # === Path-Specific Review Instructions ===
+  path_instructions:
+
+    # === PRIORITY 95: SKILL DEFINITION (Main deliverable) ===
+    - path: 'skill/SKILL.md'
+      instructions: |
+        Review the frontmatter-yaml-handler skill definition file:
+
+        **Focus Area 1: Skill Metadata & Structure**
+          - Check: Frontmatter present with name, description, and compatibility fields
+          - Check: name field is unique and descriptive (frontmatter-yaml-handler)
+          - Check: description explains use case (validates YAML frontmatter in markdown files)
+          - Check: compatibility section lists required tools and optional dependencies
+          - Check: Trigger conditions documented (when skill should be invoked)
+
+        **Focus Area 2: LightSpeedWP Standards Coverage**
+          - Check: Primary reference is LightSpeed unified frontmatter schema
+          - Check: File-type specific sections cover: agent, instruction, template types
+          - Check: All 7 validation scripts documented (validate-*, sync-*, audit-, fix-)
+          - Check: Lefthook integration examples present and correct
+          - Check: GitHub template patterns (PR/Issue) documented
+          - Check: Organization-wide standards linked (.github resources)
+
+        **Focus Area 3: Field Reference Documentation**
+          - Check: Universal fields table complete (file_type, title, description, version, dates, etc.)
+          - Check: Required vs optional fields clearly marked
+          - Check: Date format validation (ISO 8601 YYYY-MM-DD) explained
+          - Check: Enum values documented (status, stability, domain, mode)
+          - Check: Tag limits documented (max 8, kebab-case format)
+          - Check: Version format requirements clear (semantic versioning or vX.Y)
+
+        **Focus Area 4: Examples & Guidance**
+          - Check: Minimum valid frontmatter examples for each file type
+          - Check: Common tasks section (create agent, instruction, documentation)
+          - Check: Troubleshooting section addresses validation errors
+          - Check: Best practices listed (metadata accuracy, domain consistency, versioning)
+          - Check: Links to canonical resources (.github/schemas, validation scripts, guides)
+
+        **Focus Area 5: Backward Compatibility**
+          - Check: General standards fallback section present (GitHub Docs, Jekyll, Project Standards)
+          - Check: Schema compliance explained (when to use which standard)
+          - Check: Migration guidance from old to new frontmatter standards
+
+    # === PRIORITY 93: EVALUATION SUITE (Test cases) ===
+    - path: 'skill/evals/**/*.md'
+      instructions: |
+        Review skill evaluation prompt files:
+
+        **Focus Area 1: Prompt Clarity & Completeness**
+          - Check: Prompt describes the scenario/request clearly
+          - Check: Expected behavior specified (what should the skill do)
+          - Check: Constraints and requirements explicit (field formats, limits, validation rules)
+          - Check: Context provided (which LightSpeed standards apply)
+          - Check: No ambiguous or circular requirements
+
+        **Focus Area 2: LightSpeed Standards Alignment**
+          - Check: Prompt references LightSpeed unified schema correctly
+          - Check: File types match schema (agent, instruction, template, etc.)
+          - Check: Frontmatter field requirements match SKILL.md documentation
+          - Check: Date format and version format constraints match schema
+
+        **Focus Area 3: Test Coverage**
+          - Check: Evaluation covers agent file creation
+          - Check: Evaluation covers frontmatter validation and error detection
+          - Check: Evaluation covers non-agent file types (instructions, templates)
+          - Check: Evaluation covers metadata completeness
+          - Check: Edge cases included (tag limits, date formats, enum values)
+
+        **Focus Area 4: Production Readiness**
+          - Check: Example output realistic and production-ready
+          - Check: Validation criteria measurable and testable
+          - Check: No placeholder content ("[FILL IN]", "[TBD]")
+          - Check: Output ready to pass validate-agent-frontmatter.js or similar validation
+
+    - path: 'skill/evals/**/*.yaml'
+      instructions: |
+        Review skill evaluation case files (expected output and validation):
+
+        **Focus Area 1: Test Case Structure**
+          - Check: model field specifies correct Claude model
+          - Check: temperature and max_tokens appropriate for task
+          - Check: inputs section includes the prompt
+          - Check: criteria section contains testable assertions
+          - Check: expected_output section shows complete example
+
+        **Focus Area 2: Validation Criteria**
+          - Check: Criteria are specific and measurable (not vague)
+          - Check: Criteria cover required fields and formats
+          - Check: Criteria test error detection (if applicable)
+          - Check: Criteria verify LightSpeed schema compliance
+          - Check: Criteria validate frontmatter correctness
+
+        **Focus Area 3: Example Quality**
+          - Check: Expected output matches test criteria
+          - Check: Example is complete and production-ready
+          - Check: YAML syntax valid and properly formatted
+          - Check: Date formats correct (ISO 8601)
+          - Check: Enum values lowercase and correct
+          - Check: All required fields present
+
+        **Focus Area 4: Fairness & Clarity**
+          - Check: Test is not ambiguous (one correct answer)
+          - Check: Criteria not contradictory
+          - Check: Expected output achievable within max_tokens
+          - Check: Model specified has appropriate capability for task
+
+    # === PRIORITY 90: VALIDATION SCRIPTS ===
+    - path: 'scripts/**/*.js'
+      instructions: |
+        Review Node.js validation and utility scripts:
+
+        **Focus Area 1: Script Purpose & Documentation**
+          - Check: File header comments explain purpose
+          - Check: Usage examples documented (how to run script)
+          - Check: Parameters/arguments documented with types
+          - Check: Error messages helpful and actionable
+
+        **Focus Area 2: Core Functionality**
+          - Check: Script performs documented function correctly
+          - Check: Input validation present (file existence, required arguments)
+          - Check: Error handling comprehensive (try/catch, error logging)
+          - Check: Exit codes appropriate (0 for success, non-zero for failure)
+
+        **Focus Area 3: LightSpeed Standards Compliance**
+          - Check: Validation logic matches unified frontmatter schema
+          - Check: All field types and formats validated correctly
+          - Check: Error messages reference specific validation rules
+          - Check: Script integrates with lefthook properly (if hook script)
+
+        **Focus Area 4: Code Quality**
+          - Check: No hardcoded paths (use relative paths or args)
+          - Check: Dependencies listed in package.json
+          - Check: No console.log spam in output
+          - Check: Output structured (JSON, CSV, or markdown as documented)
+
+    # === PRIORITY 88: TEST FILES ===
+    - path: 'scripts/**/*.test.js'
+      instructions: |
+        Review Jest test files for scripts:
+
+        **Focus Area 1: Test Structure & Coverage**
+          - Check: Test files correspond to script files (test-companion pattern)
+          - Check: Tests cover all script functions and error paths
+          - Check: Both success and failure cases tested
+          - Check: Edge cases included (empty input, invalid format, etc.)
+
+        **Focus Area 2: Test Quality**
+          - Check: Test names describe what is validated
+          - Check: Assertions are specific (not generic pass/fail)
+          - Check: Mocks properly isolate file system and module dependencies
+          - Check: Fixtures/test data appropriate (not hardcoded paths)
+
+        **Focus Area 3: Frontmatter Validation Testing**
+          - Check: Tests validate against schema rules
+          - Check: Date format validation tested (ISO 8601)
+          - Check: Enum value validation tested (status, domain, mode)
+          - Check: Required field validation tested
+          - Check: Tag count limits tested (max 8)
+
+    # === PRIORITY 85: CONFIGURATION FILES ===
+    - path: '.github/*.yml'
+      instructions: |
+        Review GitHub configuration files:
+
+        **Focus Area 1: Consistency & Governance**
+          - Check: Labels defined in labels.yml are canonical and organized by family
+          - Check: Issue/PR templates present and up-to-date
+          - Check: Labeling automation logic correct (matches label families)
+          - Check: Branch protection rules configured (if applicable)
+
+        **Focus Area 2: Frontmatter Standards Alignment**
+          - Check: Issue templates guide users through required metadata
+          - Check: PR templates encourage linked issues and changelog entries
+          - Check: Labels use family prefixes (type:, status:, area:, etc.)
+          - Check: Automation workflows reference canonical config files
+
+    - path: 'package.json'
+      instructions: |
+        Review package.json:
+
+        **Focus Area 1: Dependency Management**
+          - Check: Dependencies are necessary (no unused packages)
+          - Check: Versions pinned appropriately (exact or semver ranges)
+          - Check: Security audit clean (no known vulnerabilities)
+          - Check: Dev dependencies separated from production
+
+        **Focus Area 2: Scripts & Commands**
+          - Check: Scripts reference existing files (no broken references)
+          - Check: Script descriptions clear (what each npm run command does)
+          - Check: validate-frontmatter script(s) present
+          - Check: Test scripts properly configured
+
+        **Focus Area 3: Metadata**
+          - Check: name, description, repository fields correct
+          - Check: version field follows semver
+          - Check: author/maintainer information current
+          - Check: keywords describe package purpose
+
+    # === PRIORITY 80: DOCUMENTATION ===
+    - path: 'README.md'
+      instructions: |
+        Review project README:
+
+        **Focus Area 1: Overview & Clarity**
+          - Check: Purpose clearly explained (frontmatter validation for LightSpeed)
+          - Check: Quick start instructions present
+          - Check: Supported file types listed (.claude/agents/, .github/, docs/)
+          - Check: LightSpeed unified schema prominently referenced
+
+        **Focus Area 2: Usage Documentation**
+          - Check: Installation instructions clear (npm install, setup)
+          - Check: Usage examples for common tasks (create agent, validate file)
+          - Check: Validation scripts documented with examples
+          - Check: Lefthook integration instructions included
+
+        **Focus Area 3: Reference Documentation**
+          - Check: Links to SKILL.md and skill/evals/ test cases
+          - Check: Links to LightSpeed governance documentation
+          - Check: Links to validation script documentation
+          - Check: Links to schema definition file
+
+        **Focus Area 4: Maintenance & Contribution**
+          - Check: Links to CONTRIBUTING.md (if exists)
+          - Check: Maintenance/owner information clear
+          - Check: License clearly stated
+          - Check: Contact/support information provided
+
+    - path: 'CONTRIBUTING.md'
+      instructions: |
+        Review contribution guidelines (if present):
+
+        **Focus Area 1: Development Setup**
+          - Check: Clone and setup instructions present
+          - Check: Dependency installation documented
+          - Check: Test running instructions clear
+          - Check: Build/validation process explained
+
+        **Focus Area 2: Contribution Process**
+          - Check: Branch naming strategy referenced (feat/, fix/, etc.)
+          - Check: Commit message format documented
+          - Check: Pull request process explained
+          - Check: Code review expectations set
+
+        **Focus Area 3: Code Standards**
+          - Check: Coding style guidelines referenced (ESLint, prettier, etc.)
+          - Check: Test requirements documented (coverage thresholds)
+          - Check: Documentation expectations set
+          - Check: Frontmatter standards compliance required
+
+    - path: 'skill/**/*.md'
+      instructions: |
+        Review supplementary skill documentation:
+
+        **Focus Area 1: Content Accuracy**
+          - Check: Information consistent with SKILL.md main documentation
+          - Check: Examples provided and accurate
+          - Check: No contradictions with governance standards
+          - Check: Links to related resources functional
+
+        **Focus Area 2: Organization & Clarity**
+          - Check: Content well-structured (headings, sections)
+          - Check: Technical terms defined or linked
+          - Check: No redundancy with main SKILL.md
+          - Check: Clear purpose (guide, reference, troubleshooting)
+
+    # === PRIORITY 70: SCHEMA & CONFIGURATION ===
+    - path: '**/*.json'
+      instructions: |
+        Review JSON configuration files:
+
+        **Focus Area 1: Schema & Structure**
+          - Check: JSON syntax valid (proper quotes, commas, brackets)
+          - Check: Structure matches expected format
+          - Check: Indentation consistent (2 or 4 spaces)
+          - Check: Comments removed (JSON doesn't support them)
+
+        **Focus Area 2: Frontmatter-Specific (if applicable)**
+          - Check: frontmatter.schema.json properly documents all fields
+          - Check: Field types correct (string, array, object, boolean)
+          - Check: Enums properly defined (status, domain, mode values)
+          - Check: Required fields marked correctly
+          - Check: Pattern validation for dates (ISO 8601), versions, tags
+
+    # === PRIORITY 1-49: CATCH-ALL GUIDANCE ===
+    - path: '**/*'
+      instructions: |
+        General review guidance for all files:
+
+        **LightSpeedWP Frontmatter Standards**
+          - Verify any frontmatter examples follow unified schema
+          - Check file type references (agent, instruction, template) are valid
+          - Validate enum values (status, stability, domain, mode are lowercase)
+          - Confirm dates use ISO 8601 format (YYYY-MM-DD)
+
+        **Code Quality Standards**
+          - Follow project conventions (see package.json scripts)
+          - No hardcoded secrets or credentials
+          - Error messages are helpful and actionable
+          - Documentation is clear and up-to-date
