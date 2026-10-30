@@ -16,7 +16,9 @@ teardown_temp_dir() {
 create_test_file() {
   local filename="$1"
   local content="$2"
-  echo "$content" > "$TEST_TMPDIR/$filename"
+  local dir="$(dirname "$TEST_TMPDIR/$filename")"
+  mkdir -p "$dir"
+  printf '%s\n' "$content" > "$TEST_TMPDIR/$filename"
 }
 
 # Read test file
