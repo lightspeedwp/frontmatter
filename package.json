@@ -1,0 +1,90 @@
+{
+  "name": "frontmatter-yaml-handler",
+  "version": "1.0.0",
+  "description": "YAML frontmatter validation and management skill for LightSpeedWP projects",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prepare": "lefthook install",
+    "test": "jest --coverage --detectOpenHandles",
+    "test:watch": "jest --watch",
+    "test:verbose": "jest --verbose --coverage",
+    "test:bats": "bats tests/*.bats",
+    "test:bats:verbose": "bats --verbose tests/*.bats",
+    "test:all": "npm test && npm run test:bats",
+    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand",
+    "coverage": "jest --coverage && open coverage/lcov-report/index.html",
+    "coverage:report": "jest --coverage --ci",
+    "validate": "node scripts/validation/validate-frontmatter.js",
+    "validate:changed": "node scripts/validation/validate-frontmatter-changed.js",
+    "sync:dates": "node scripts/validation/sync-frontmatter-dates.js",
+    "audit": "node scripts/audit/audit-frontmatter.js",
+    "fix:agents": "node scripts/fix/fix-agent-frontmatter.js",
+    "lint": "eslint . --fix 2>/dev/null || true && shellcheck scripts/*.sh 2>/dev/null || true",
+    "preflight": "./scripts/preflight-check.sh"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
+    "eslint": "^8.53.0",
+    "lefthook": "^2.2.2"
+  },
+  "keywords": [
+    "frontmatter",
+    "yaml",
+    "validation",
+    "metadata",
+    "lightspeed",
+    "markdown",
+    "schema",
+    "claude-code",
+    "skill"
+  ],
+  "author": "Platform Engineering",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "scripts/**/*.js",
+      "skill/**/*.js",
+      "!scripts/**/*.test.js",
+      "!**/__tests__/**",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "text-summary",
+      "html",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.js",
+      "**/?(*.)+(spec|test).js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/",
+      "/dist/"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/$1"
+    }
+  }
+}

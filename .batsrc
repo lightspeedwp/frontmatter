@@ -1,0 +1,16 @@
+# Bats configuration for integration testing
+
+# Exit on first failure
+set -e
+
+# Show output for failed tests
+export BATS_SHOW_OUTPUT=1
+
+# Parallel execution disabled for file operations
+export BATS_NO_PARALLEL=1
+
+# Setup/teardown timeout
+export BATS_TIMEOUT=30
+
+# Report format
+export BATS_FORMATTER=tap
