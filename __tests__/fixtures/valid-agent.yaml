@@ -2,12 +2,12 @@
 file_type: agent
 name: Code Review Agent
 description: Reviews pull requests for code quality and security issues
-version: v1.0
+version: v1.0.0
 created_date: 2026-10-30
 last_updated: 2026-10-30
 author: Platform Engineering
 owners:
-  - @engineering-lead
+  - engineering-lead
 status: active
 stability: stable
 mode: agent
@@ -17,4 +17,3 @@ tools:
   - grep
   - edit
 tags: [code-review, quality, security, automation]
----

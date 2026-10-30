@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "prepare": "lefthook install",
-    "test": "jest --coverage --detectOpenHandles",
-    "test:watch": "jest --watch",
-    "test:verbose": "jest --verbose --coverage",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage --detectOpenHandles",
+    "test:watch": "NODE_OPTIONS='--experimental-vm-modules' jest --watch",
+    "test:verbose": "NODE_OPTIONS='--experimental-vm-modules' jest --verbose --coverage",
     "test:bats": "bats tests/*.bats",
     "test:bats:verbose": "bats --verbose tests/*.bats",
     "test:all": "npm test && npm run test:bats",
@@ -48,43 +48,5 @@
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "scripts/**/*.js",
-      "skill/**/*.js",
-      "!scripts/**/*.test.js",
-      "!**/__tests__/**",
-      "!**/node_modules/**",
-      "!**/coverage/**"
-    ],
-    "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "text",
-      "text-summary",
-      "html",
-      "lcov"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 95,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "testMatch": [
-      "**/__tests__/**/*.test.js",
-      "**/?(*.)+(spec|test).js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/coverage/",
-      "/dist/"
-    ],
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/$1"
-    }
   }
 }

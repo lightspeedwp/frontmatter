@@ -1,19 +1,18 @@
 ---
 file_type: agent
-name: "Code Review Agent"
-description = "Reviews pull requests"
+name: Code Review Agent
+description: Reviews pull requests
 version: version-1.0
-created_date: "01/15/2026"
-last_updated: "10/30/2026"
-author: "Platform Engineering"
+created_date: 01/15/2026
+last_updated: 10/30/2026
+author: Platform Engineering
 owners: engineering-lead
 status: ACTIVE
-stability: "Stable"
+stability: Stable
 mode: agent
 domain: awesome-copilot
 tools:
   - read
-  - "grep"
+  - grep
   - edit
 tags: [code-review, quality, security, automation, testing, performance, optimization, validation, safety]
----

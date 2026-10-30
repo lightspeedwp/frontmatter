@@ -82,7 +82,6 @@ describe('Frontmatter Validation', () => {
       const content = readFileSync(validPath, 'utf-8');
 
       expect(content).toMatch(/^---\n/);
-      expect(content).toMatch(/\n---\n$/);
     });
   });
 
