@@ -1,42 +1,62 @@
-# EXAMPLE USAGE:
+# Lefthook Configuration for Frontmatter YAML Handler
+# https://lefthook.dev/
 #
-#   Refer for explanation to following link:
-#   https://lefthook.dev/configuration/
-#
-# pre-push:
-#   jobs:
-#     - name: packages audit
-#       tags:
-#         - frontend
-#         - security
-#       run: yarn audit
-#
-#     - name: gems audit
-#       tags:
-#         - backend
-#         - security
-#       run: bundle audit
-#
-# pre-commit:
-#   parallel: true
-#   jobs:
-#     - run: yarn eslint {staged_files}
-#       glob: "*.{js,ts,jsx,tsx}"
-#
-#     - name: rubocop
-#       glob: "*.rb"
-#       exclude:
-#         - config/application.rb
-#         - config/routes.rb
-#       run: bundle exec rubocop --force-exclusion -- {all_files}
-#
-#     - name: govet
-#       files: git ls-files -m
-#       glob: "*.go"
-#       run: go vet -- {files}
-#
-#     - script: "hello.js"
-#       runner: node
-#
-#     - script: "hello.go"
-#       runner: go run
+# Pre-commit hooks for validating and testing frontmatter
+# Ensures consistent code quality and test coverage on every commit
+
+# Global configuration
+assert_lefthook_installed: true
+colors: true
+
+# Pre-commit hooks - Run before commit
+pre-commit:
+  parallel: true
+  jobs:
+    # Test Infrastructure Check
+    - name: preflight
+      glob: "**/*.{js,yml,yaml,md}"
+      run: npm run preflight 2>&1 | head -10
+
+    # Unit Tests with Coverage
+    - name: jest
+      glob: "**/*.js"
+      run: npm test -- --bail 2>&1 | tail -15
+
+    # Integration Tests
+    - name: bats
+      glob: "**/*.bats"
+      run: npm run test:bats 2>&1 | tail -10
+
+    # Frontmatter Validation
+    - name: validate
+      glob: "**/*.{md,yaml,yml}"
+      run: npm run validate . 2>&1 | head -15
+
+    # Linting
+    - name: lint
+      glob: "**/*.{js,sh}"
+      run: npm run lint 2>&1 | tail -10
+
+# Commit-msg hooks - Enforce conventional commits
+commit-msg:
+  parallel: true
+  jobs:
+    - name: conventional-commits
+      run: |
+        MESSAGE=$(cat $1)
+        if [[ ! "$MESSAGE" =~ ^(feat|fix|docs|test|refactor|perf|chore)(\(.+\))?:\ .+ ]]; then
+          echo "❌ Commit message must follow Conventional Commits"
+          echo "Format: <type>(<scope>): <subject>"
+          echo "Types: feat, fix, docs, test, refactor, perf, chore"
+          exit 1
+        fi
+
+# Post-checkout hooks
+post-checkout:
+  parallel: true
+  jobs:
+    - name: update-dependencies
+      run: |
+        if git diff-tree -r HEAD@{1} HEAD --name-only | grep -E 'package-lock\.json|package\.json' > /dev/null 2>&1; then
+          npm install --frozen-lockfile
+        fi
