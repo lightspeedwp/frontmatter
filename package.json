@@ -19,7 +19,7 @@
     "validate:changed": "node scripts/validation/validate-frontmatter-changed.js",
     "sync:dates": "node scripts/validation/sync-frontmatter-dates.js",
     "audit": "node scripts/audit/audit-frontmatter.js",
-    "fix:agents": "node scripts/fix/fix-agent-frontmatter.js",
+    "fix:agents": "node scripts/fix/fix-frontmatter.js",
     "lint": "eslint . --fix 2>/dev/null || true && shellcheck scripts/*.sh 2>/dev/null || true",
     "preflight": "./scripts/preflight-check.sh"
   },
