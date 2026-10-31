@@ -1,0 +1,75 @@
+{
+  "hooks": {
+    "pre-commit": {
+      "skip_recommended": ["typescript", "python"],
+      "notes": "This repo uses Bash and JavaScript only. TypeScript/Python hooks are not relevant."
+    },
+    "post-commit": {
+      "coverage_check": true,
+      "notes": "Jest tests enforce 95% coverage threshold via lefthook.yml"
+    }
+  },
+  "tools": {
+    "recommended": [
+      "npm",
+      "git",
+      "jest",
+      "bats"
+    ],
+    "not_available": [
+      "python",
+      "go",
+      "rust"
+    ]
+  },
+  "testing": {
+    "unit_test_command": "npm test",
+    "integration_test_command": "npm run test:bats",
+    "coverage_threshold": 95,
+    "test_timeout_ms": 30000,
+    "watch_mode": "npm run test:watch"
+  },
+  "linting": {
+    "javascript": {
+      "tool": "eslint",
+      "command": "npm run lint",
+      "fix": "npx eslint --fix"
+    },
+    "shell": {
+      "tool": "shellcheck",
+      "command": "npm run lint",
+      "note": "Run via lefthook.yml"
+    }
+  },
+  "formatting": {
+    "tool": "prettier",
+    "command": "npx prettier --write",
+    "config": ".prettierrc (if exists)"
+  },
+  "documentation": {
+    "main": "README.md",
+    "contributing": "docs/CONTRIBUTING.md",
+    "governance": "AGENTS.md",
+    "claude_guidance": "CLAUDE.md",
+    "api_reference": "docs/VALIDATION_RULES.md",
+    "examples": [
+      "docs/BLOCK_THEME_EXAMPLES.md",
+      "docs/BLOCK_PLUGIN_EXAMPLES.md",
+      "docs/WORDPRESS_FRONTMATTER.md"
+    ]
+  },
+  "validation": {
+    "schema_file": "skill/references/frontmatter-schema.md",
+    "wordpress_fields": "skill/references/wordpress-fields.md",
+    "rules_reference": "skill/references/validation-rules.md"
+  },
+  "org_standards": {
+    "synced": true,
+    "sync_audit": ".github/SYNC_AUDIT.md",
+    "branch_types": ".github/branch-types.yml",
+    "labels": ".github/labels.yml",
+    "issue_templates": ".github/ISSUE_TEMPLATE/",
+    "pr_templates": ".github/PULL_REQUEST_TEMPLATE/"
+  },
+  "notes": "This is a skill repository for Claude Code. All configuration aligns with LightSpeedWP org standards. See .github/SYNC_AUDIT.md for standards alignment details."
+}
