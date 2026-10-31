@@ -17,7 +17,7 @@ Reference these when working on this repository:
 - **AGENTS.md** — Repository-wide agent conventions (READ FIRST)
 - **skill/SKILL.md** — Skill definition and documentation
 - **docs/** — Detailed documentation and examples
-- **CONTRIBUTING.md** — Contribution guidelines
+- **docs/CONTRIBUTING.md** — Contribution guidelines
 - **CHANGELOG.md** — Release history and version notes
 - **.coderabbit.yml** — Code review configuration
 
@@ -88,7 +88,7 @@ npm run format               # Prettier format
 
 1. **Read AGENTS.md** — Understand protected files
 2. **Check CLAUDE.md** — This guidance (specific to frontmatter)
-3. **Review CONTRIBUTING.md** — Contribution workflow
+3. **Review docs/CONTRIBUTING.md** — Contribution workflow
 4. **Understand the impact** — Who uses this, what depends on changes
 
 ### Creating a Feature Branch

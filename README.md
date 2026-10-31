@@ -122,7 +122,7 @@ tags: [gutenberg, blocks, custom-blocks]
 
 ## Documentation
 
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — Contribution guidelines and development workflow
+- **[docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)** — Contribution guidelines and development workflow
 - **[docs/WORDPRESS_FRONTMATTER.md](./docs/WORDPRESS_FRONTMATTER.md)** — Comprehensive WordPress patterns and validation rules
 - **[docs/BLOCK_THEME_EXAMPLES.md](./docs/BLOCK_THEME_EXAMPLES.md)** — Block theme configuration examples
 - **[docs/BLOCK_PLUGIN_EXAMPLES.md](./docs/BLOCK_PLUGIN_EXAMPLES.md)** — Block plugin patterns and best practices
@@ -235,7 +235,7 @@ This skill is actively maintained by the Platform Engineering team. Contribution
 4. Ensure all tests pass: `npm run test:all`
 5. Submit a pull request
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
+See [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) for detailed guidelines.
 
 ## Support
 

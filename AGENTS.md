@@ -75,6 +75,7 @@ docs/
 ├── BRANCHING_STRATEGY.md    # Branch naming & strategy
 ├── VALIDATION_RULES.md      # Frontmatter validation rules
 ├── CONTRIBUTING.md          # How to contribute
+├── ENHANCEMENT_PLAN.md      # Enhancement roadmap
 ├── API.md                   # Script API documentation
 └── EXAMPLES.md              # Usage examples
 ```
