@@ -5,35 +5,28 @@ Comprehensive guides for the Frontmatter YAML Handler skill and its sub-skills, 
 ## Quick Links
 
 - **[README.md](../README.md)** — Project overview and quick start
-- **[CONTRIBUTING.md](../CONTRIBUTING.md)** — Development workflow and guidelines
-- **[WORDPRESS_FRONTMATTER.md](./WORDPRESS_FRONTMATTER.md)** — WordPress patterns and validation rules
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — Development workflow and contribution guidelines
+- **[WORDPRESS_FRONTMATTER.md](./WORDPRESS_FRONTMATTER.md)** — WordPress-specific validation and patterns
 - **[BLOCK_THEME_EXAMPLES.md](./BLOCK_THEME_EXAMPLES.md)** — Production-ready block theme examples
 - **[BLOCK_PLUGIN_EXAMPLES.md](./BLOCK_PLUGIN_EXAMPLES.md)** — Production-ready block plugin examples
-- **[TESTING.md](./TESTING.md)** — Test setup, Jest and Bats usage, 95% coverage guide
+- **[TESTING.md](./TESTING.md)** — Test setup, Jest/Bats usage, coverage enforcement
+- **[GETTING_STARTED.md](./GETTING_STARTED.md)** — Step-by-step onboarding guide
+- **[VALIDATION_RULES.md](./VALIDATION_RULES.md)** — Complete validation rule reference
+- **[ENHANCEMENT_PLAN.md](./ENHANCEMENT_PLAN.md)** — Roadmap and enhancement phases
 
 ## Structure
 
 ```
 docs/
-├── README.md (this file)
-├── WORDPRESS_FRONTMATTER.md
-│   ├── Block Theme Patterns
-│   ├── Block Plugin Patterns
-│   ├── Validation Rules
-│   └── Migration Guide
-├── BLOCK_THEME_EXAMPLES.md
-│   ├── 6 Production-Ready Themes
-│   ├── Common Patterns
-│   └── Best Practices
-├── BLOCK_PLUGIN_EXAMPLES.md
-│   ├── 6 Production-Ready Plugins
-│   ├── Block Types & Examples
-│   └── Best Practices
-└── TESTING.md
-    ├── Jest Unit Tests
-    ├── Bats Integration Tests
-    ├── Coverage Enforcement (95%)
-    └── Troubleshooting
+├── README.md (this file) — Documentation index
+├── GETTING_STARTED.md — Quick onboarding guide
+├── CONTRIBUTING.md — Development workflow & guidelines
+├── WORDPRESS_FRONTMATTER.md — WordPress patterns & validation
+├── BLOCK_THEME_EXAMPLES.md — 6 production-ready theme examples
+├── BLOCK_PLUGIN_EXAMPLES.md — 6 production-ready plugin examples
+├── TESTING.md — Jest/Bats testing guide & coverage enforcement
+├── VALIDATION_RULES.md — Complete validation rule reference
+└── ENHANCEMENT_PLAN.md — Roadmap and enhancement phases
 ```
 
 ## Overview
@@ -50,10 +43,11 @@ These docs cover:
 
 New to the project? Start here:
 
-1. Read [README.md](../README.md) for overview and installation
-2. Review [WORDPRESS_FRONTMATTER.md](./WORDPRESS_FRONTMATTER.md) for your use case
-3. Check [BLOCK_THEME_EXAMPLES.md](./BLOCK_THEME_EXAMPLES.md) or [BLOCK_PLUGIN_EXAMPLES.md](./BLOCK_PLUGIN_EXAMPLES.md) for examples
-4. See [TESTING.md](./TESTING.md) for writing tests
+1. Read [../README.md](../README.md) for project overview
+2. Skim [GETTING_STARTED.md](./GETTING_STARTED.md) for installation & basic usage
+3. Review [WORDPRESS_FRONTMATTER.md](./WORDPRESS_FRONTMATTER.md) for your use case
+4. Check [BLOCK_THEME_EXAMPLES.md](./BLOCK_THEME_EXAMPLES.md) or [BLOCK_PLUGIN_EXAMPLES.md](./BLOCK_PLUGIN_EXAMPLES.md) for patterns
+5. See [TESTING.md](./TESTING.md) to start contributing
 
 ## WordPress-Specific
 
@@ -69,9 +63,10 @@ New to the project? Start here:
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for:
-- Development workflow (branch naming, testing requirements)
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+- Branch naming and development workflow
 - Code standards (JavaScript, Bash, YAML)
+- Testing requirements (95% coverage minimum)
 - Pull request process
 - WordPress-specific contribution guidelines
 

@@ -24,8 +24,8 @@ Thank you for your interest in contributing! This guide will help you understand
 
 ```bash
 # Clone the repository
-git clone https://github.com/lightspeedwp/frontmatter-yaml-handler.git
-cd frontmatter-yaml-handler
+git clone https://github.com/lightspeedwp/frontmatter.git
+cd frontmatter
 
 # Install dependencies
 npm install
@@ -40,7 +40,7 @@ npm run test:watch
 ### Project Structure
 
 ```
-frontmatter-yaml-handler/
+frontmatter/
 ├── __tests__/                 # Jest unit tests
 │   └── fixtures/              # Test data and fixtures
 ├── tests/                     # Bats integration tests
@@ -422,8 +422,9 @@ cat docs/BLOCK_PLUGIN_EXAMPLES.md
 
 ## Questions or Need Help?
 
-- **Documentation** — Check [docs/](./docs/) folder
-- **Examples** — See WordPress examples in README and docs
+- **Documentation** — Check [docs/](../docs/) folder
+- **Examples** — See WordPress examples in [README](../README.md) and docs/
+- **Contribution Guide** — Review [AGENTS.md](../AGENTS.md) and [CLAUDE.md](../CLAUDE.md) for repo governance
 - **Issues** — Search existing issues before creating new ones
 - **Discussions** — Use GitHub Discussions for questions
 

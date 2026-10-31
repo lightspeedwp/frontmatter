@@ -1,18 +1,22 @@
 # Frontmatter YAML Handler
 
-A comprehensive YAML frontmatter validation and management skill for WordPress block themes, WordPress block plugins, and LightSpeedWP projects. Ensures consistent metadata, enforces best practices, and automates frontmatter validation in CI/CD pipelines.
+A comprehensive YAML frontmatter validation and management **Claude skill** for WordPress block themes, WordPress block plugins, and LightSpeedWP projects.
+
+**What it does:** Validates frontmatter syntax and structure, enforces the LightSpeedWP schema, automatically fixes common formatting errors, and provides CI/CD integration for automated validation on every commit.
+
+**Who uses it:** Developers, designers, and CI/CD pipelines working with WordPress block themes/plugins or LightSpeedWP projects that need consistent metadata management.
 
 ## Features
 
-- **YAML Validation** — Parse and validate frontmatter syntax
-- **Schema Enforcement** — Validate against LightSpeedWP unified frontmatter schema
-- **Format Checking** — Enforce consistent date formats (ISO 8601), versions (semantic versioning), and field naming
-- **Automatic Fixing** — Correct common frontmatter errors automatically
-- **Date Synchronization** — Keep `created_date` and `last_updated` fields in sync
-- **Audit Tools** — Scan entire repositories for frontmatter compliance
-- **WordPress-Specific Patterns** — Pre-built patterns for block themes and block plugins
-- **100% Test Coverage** — Jest unit tests + Bats integration tests with 95% minimum thresholds
-- **CI/CD Integration** — GitHub Actions workflow for automated validation on every commit
+- **YAML Validation** — Parse and validate frontmatter syntax against schema
+- **Schema Enforcement** — Validate against the LightSpeedWP unified frontmatter schema
+- **Format Checking** — Enforce consistent dates (ISO 8601), versions (semver), casing, and field types
+- **Automatic Fixing** — Correct date formats, version formatting, tag normalization, casing errors
+- **Date Synchronization** — Keep `last_updated` in sync while preserving `created_date`
+- **Repository Auditing** — Scan entire repositories for compliance issues and generate reports
+- **WordPress Support** — Dedicated validation for block themes, block plugins, patterns, and dependencies
+- **Comprehensive Testing** — 111 Jest unit tests + 40+ Bats integration tests (58% statement coverage)
+- **CI/CD Ready** — GitHub Actions workflows with semantic versioning enforcement and coverage reporting
 
 ## Quick Start
 
@@ -39,10 +43,13 @@ npm run audit
 ### Fix Frontmatter
 
 ```bash
-# Automatically fix agent files
+# Automatically fix frontmatter formatting errors
 npm run fix:agents path/to/file.md
 
-# Sync dates with current timestamp
+# Preview fixes without writing changes
+npm run fix:agents path/to/file.md -- --dry-run
+
+# Sync last_updated date with today's date
 npm run sync:dates path/to/file.md
 ```
 
@@ -218,11 +225,11 @@ Scan directory and report all frontmatter issues.
 node scripts/audit/audit-frontmatter.js .
 ```
 
-#### `fixAgentFrontmatter(file)`
-Automatically correct common frontmatter errors.
+#### `fixFrontmatter(file)`
+Automatically correct common frontmatter formatting errors (dates, versions, tags, casing).
 
 ```bash
-node scripts/fix/fix-agent-frontmatter.js path/to/file.md
+node scripts/fix/fix-frontmatter.js path/to/file.md [--dry-run] [--summary]
 ```
 
 ## Contributing
