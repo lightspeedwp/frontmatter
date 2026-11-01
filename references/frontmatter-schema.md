@@ -524,8 +524,8 @@ Always include with agents:
 
 ## References
 
-- See `skill/references/validation-rules.md` for detailed validation
-- See `skill/references/wordpress-fields.md` for WordPress-specific fields
+- See `references/validation-rules.md` for detailed validation
+- See `references/wordpress-fields.md` for WordPress-specific fields
 - See `docs/WORDPRESS_FRONTMATTER.md` for WordPress patterns
 - See `docs/BLOCK_THEME_EXAMPLES.md` for theme examples
 - See `docs/BLOCK_PLUGIN_EXAMPLES.md` for plugin examples

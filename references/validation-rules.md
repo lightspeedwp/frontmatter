@@ -622,6 +622,6 @@ npm run fix:agents path/to/file.md
 
 ## References
 
-- See `skill/references/frontmatter-schema.md` for field specifications
-- See `skill/references/wordpress-fields.md` for WordPress field rules
+- See `references/frontmatter-schema.md` for field specifications
+- See `references/wordpress-fields.md` for WordPress field rules
 - See `docs/VALIDATION_RULES.md` for extended examples

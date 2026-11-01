@@ -639,8 +639,8 @@ Similar process for patterns:
 
 ## References
 
-- See `skill/references/frontmatter-schema.md` for complete schema
-- See `skill/references/wordpress-fields.md` for WordPress field details
+- See `references/frontmatter-schema.md` for complete schema
+- See `references/wordpress-fields.md` for WordPress field details
 - See `docs/WORDPRESS_FRONTMATTER.md` for WordPress patterns guide
 - See `docs/BLOCK_THEME_EXAMPLES.md` for real block theme examples
 - See `docs/BLOCK_PLUGIN_EXAMPLES.md` for real block plugin examples

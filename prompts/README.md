@@ -5,7 +5,7 @@ System prompts and instructions for the Frontmatter YAML Handler skill and its s
 ## Structure
 
 ```
-skill/prompts/
+prompts/
 ├── README.md (this file)
 ├── main-skill.md
 ├── validator-skill.md

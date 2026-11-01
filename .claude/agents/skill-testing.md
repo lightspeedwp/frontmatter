@@ -16,7 +16,7 @@ This guidance applies when:
 All test cases follow this structure:
 
 ```
-skill/sub-skills/[skill-name]/evals/
+sub-skills/[skill-name]/evals/
 └── test-case-name/
     ├── prompt.md          # User's task prompt
     ├── case.yaml          # Expected result description
@@ -107,7 +107,7 @@ When adding new code:
 
 ## Creating a Test Case
 
-1. **Create directory** under `skill/sub-skills/[skill]/evals/test-case-name/`
+1. **Create directory** under `sub-skills/[skill]/evals/test-case-name/`
 2. **Write prompt.md** with the task the skill should handle
 3. **Write case.yaml** describing expected result
 4. **Add test inputs** in `files/` subdirectory if needed
@@ -149,7 +149,7 @@ The skill-creator workflow:
 5. Launch reviewer for human evaluation
 6. Iterate based on feedback
 
-See `skill/sub-skills/*/evals/` for existing test cases.
+See `sub-skills/*/evals/` for existing test cases.
 
 ## Tips for Effective Testing
 
@@ -163,5 +163,5 @@ See `skill/sub-skills/*/evals/` for existing test cases.
 ## References
 
 - [docs/TESTING.md](../../docs/TESTING.md) — Full testing guide
-- [skill/SKILL.md](../../skill/SKILL.md) — Skill definition
-- [skill/sub-skills/](../../skill/sub-skills/) — Sub-skill implementations
+- [SKILL.md](../../SKILL.md) — Skill definition
+- [sub-skills/](../../sub-skills/) — Sub-skill implementations

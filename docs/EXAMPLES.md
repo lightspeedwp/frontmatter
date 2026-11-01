@@ -441,5 +441,5 @@ tools:
 
 - [VALIDATION_RULES.md](./VALIDATION_RULES.md) — Detailed validation rules
 - [GETTING_STARTED.md](./GETTING_STARTED.md) — Quick start guide
-- [SKILL.md](../skill/SKILL.md) — Complete skill documentation
+- [SKILL.md](../SKILL.md) — Complete skill documentation
 - **.github/.schemas/frontmatter.schema.json** — Full schema definition

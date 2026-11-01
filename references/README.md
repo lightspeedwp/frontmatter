@@ -5,7 +5,7 @@ Reference documentation loaded into skill context as needed.
 ## Structure
 
 ```
-skill/references/
+references/
 ├── README.md (this file)
 ├── frontmatter-schema.md
 ├── wordpress-fields.md

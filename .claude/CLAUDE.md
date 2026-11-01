@@ -44,15 +44,15 @@ Three sub-skills work together:
 ## Safe Changes
 
 ✅ Safe to modify:
-- `skill/evals/**` — Test cases
-- `skill/prompts/**` — Skill prompts
+- `evals/**` — Test cases
+- `prompts/**` — Skill prompts
 - `scripts/**/*.js` — Validation logic (with tests)
 - `docs/**` — Documentation
 - `README.md`, `CHANGELOG.md` — Public docs
 - Test files (`__tests__/**`, `tests/**`)
 
 ⚠️ Risky (test carefully):
-- `skill/SKILL.md` — Public API, users depend on it
+- `SKILL.md` — Public API, users depend on it
 - `package.json` — Dependencies, security sensitive
 - `jest.config.js` — Test configuration
 - `lefthook.yml` — CI/CD hooks
@@ -67,8 +67,8 @@ Three sub-skills work together:
 
 ### Add a Validation Rule
 
-1. Edit `skill/references/validation-rules.md` (document the rule)
-2. Edit `skill/prompts/validator-skill.md` (guide Claude behavior)
+1. Edit `references/validation-rules.md` (document the rule)
+2. Edit `prompts/validator-skill.md` (guide Claude behavior)
 3. Update `scripts/validation/validate-frontmatter.js` (implement logic)
 4. Add Jest tests in `__tests__/validate-frontmatter.test.js`
 5. Add Bats tests in `tests/validate-all.bats`
@@ -78,7 +78,7 @@ Three sub-skills work together:
 ### Add a WordPress Pattern
 
 1. Add example to `docs/BLOCK_THEME_EXAMPLES.md` or `docs/BLOCK_PLUGIN_EXAMPLES.md`
-2. Update `skill/references/wordpress-fields.md` if new fields needed
+2. Update `references/wordpress-fields.md` if new fields needed
 3. Update `scripts/validation/validate-frontmatter.js` for WordPress validation
 4. Add test cases in `__tests__/`
 5. Run tests and verify coverage
@@ -86,7 +86,7 @@ Three sub-skills work together:
 ### Fix a Bug in Validation
 
 1. Write a failing test in `__tests__/` or `tests/`
-2. Fix the logic in `scripts/validation/` or `skill/prompts/`
+2. Fix the logic in `scripts/validation/` or `prompts/`
 3. Verify: `npm run test:all`
 4. Update documentation if needed
 5. Add entry to `CHANGELOG.md`
@@ -127,9 +127,9 @@ See [`.github/SYNC_AUDIT.md`](.github/SYNC_AUDIT.md) for alignment details.
 
 ## Questions?
 
-- **Skill definition** → Read `skill/SKILL.md`
+- **Skill definition** → Read `SKILL.md`
 - **Contribution workflow** → See `docs/CONTRIBUTING.md`
 - **Repository governance** → Check `AGENTS.md`
-- **Validation rules** → See `skill/references/validation-rules.md`
+- **Validation rules** → See `references/validation-rules.md`
 - **WordPress patterns** → Check `docs/WORDPRESS_FRONTMATTER.md`
 - **Test setup** → Read `docs/TESTING.md`

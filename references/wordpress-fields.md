@@ -631,9 +631,9 @@ blocks:
 
 ## References
 
-- See `skill/references/frontmatter-schema.md` for universal fields
-- See `skill/references/validation-rules.md` for detailed validation rules
-- See `skill/references/block-patterns.md` for naming conventions
+- See `references/frontmatter-schema.md` for universal fields
+- See `references/validation-rules.md` for detailed validation rules
+- See `references/block-patterns.md` for naming conventions
 - See `docs/WORDPRESS_FRONTMATTER.md` for WordPress patterns guide
 - See `docs/BLOCK_THEME_EXAMPLES.md` for complete theme examples
 - See `docs/BLOCK_PLUGIN_EXAMPLES.md` for complete plugin examples

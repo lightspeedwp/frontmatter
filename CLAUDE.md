@@ -9,13 +9,13 @@ This file contains repository-specific guidance for Claude Code agents working i
 **Purpose**: YAML frontmatter validation and metadata standards management  
 **Owner**: `@engineering-lead`  
 
-The frontmatter repository maintains a reusable Claude Code skill (`skill/SKILL.md`) and supporting validation scripts for managing YAML frontmatter across LightSpeedWP projects.
+The frontmatter repository maintains a reusable Claude Code skill (`SKILL.md`) and supporting validation scripts for managing YAML frontmatter across LightSpeedWP projects.
 
 ## Key Governance Documents
 
 Reference these when working on this repository:
 - **AGENTS.md** — Repository-wide agent conventions (READ FIRST)
-- **skill/SKILL.md** — Skill definition and documentation
+- **SKILL.md** — Skill definition and documentation
 - **docs/** — Detailed documentation and examples
 - **docs/CONTRIBUTING.md** — Contribution guidelines
 - **CHANGELOG.md** — Release history and version notes
@@ -52,8 +52,8 @@ npm run format               # Prettier format
 ## Safe vs. Risky Changes
 
 ### ✅ Safe to Modify
-- `skill/evals/**/*.md` — Test case prompts
-- `skill/prompts/**/*.md` — Reusable prompts
+- `evals/**/*.md` — Test case prompts
+- `prompts/**/*.md` — Reusable prompts
 - `README.md` — User documentation
 - `CHANGELOG.md` — Release notes
 - `docs/**` — Detailed guides
@@ -61,7 +61,7 @@ npm run format               # Prettier format
 - Comments and documentation
 
 ### ⚠️ Risky (Test Carefully)
-- `skill/SKILL.md` — Main skill (users depend on it)
+- `SKILL.md` — Main skill (users depend on it)
 - `scripts/validation/**/*.js` — Validation logic (affects all users)
 - `package.json` — Dependencies (security/compatibility risk)
 - `.coderabbit.yml` — Code review config (impacts all PRs)
@@ -123,7 +123,7 @@ git commit -m "type: description"
 ### PR Review Focus
 
 The `.coderabbit.yml` config ensures reviews cover:
-- **skill/SKILL.md**: Completeness, LightSpeed standards, clarity
+- **SKILL.md**: Completeness, LightSpeed standards, clarity
 - **scripts/**: Error handling, schema compliance, validation logic
 - **evals/**: Test case accuracy, prompt clarity, validation criteria
 - **docs/**: Accuracy, examples, links, completeness
@@ -133,7 +133,7 @@ The `.coderabbit.yml` config ensures reviews cover:
 
 ### Add a New Skill Prompt
 
-1. Create file: `skill/prompts/{task-name}.md`
+1. Create file: `prompts/{task-name}.md`
 2. Document the task clearly
 3. Include examples and validation rules
 4. Add frontmatter (file_type, title, description)
@@ -142,10 +142,10 @@ The `.coderabbit.yml` config ensures reviews cover:
 
 **Example**:
 ```bash
-cp skill/prompts/create-agent.md skill/prompts/new-prompt.md
+cp prompts/create-agent.md prompts/new-prompt.md
 # Edit the file with your prompt
 npm run validate
-git add skill/prompts/new-prompt.md
+git add prompts/new-prompt.md
 git commit -m "feat: add new skill prompt"
 ```
 
@@ -175,8 +175,8 @@ If adding support for a new file type (agent, instruction, template, etc.):
 
 1. Update schema: `.github/.schemas/frontmatter.schema.json`
 2. Add validation in `scripts/validation/validate-frontmatter.js`
-3. Create prompt: `skill/prompts/create-{filetype}.md`
-4. Add evaluation test: `skill/evals/{filetype}/`
+3. Create prompt: `prompts/create-{filetype}.md`
+4. Add evaluation test: `evals/{filetype}/`
 5. Update SKILL.md documentation
 6. **Requires coordination with .github repository**
 
@@ -240,7 +240,7 @@ This repository prioritizes:
 
 **Questions**:
 - Repository-specific: Check CLAUDE.md
-- Skill usage: Read skill/SKILL.md
+- Skill usage: Read SKILL.md
 - Contribution process: See CONTRIBUTING.md
 - Complex issues: Open GitHub issue with context
 

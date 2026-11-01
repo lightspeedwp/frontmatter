@@ -394,7 +394,7 @@ npm run fix:agents
 
 ## Related Documentation
 
-- [SKILL.md](../skill/SKILL.md) — Complete skill documentation
+- [SKILL.md](../SKILL.md) — Complete skill documentation
 - [GETTING_STARTED.md](./GETTING_STARTED.md) — Quick start guide
 - [EXAMPLES.md](./EXAMPLES.md) — Real-world examples
 - **.github/.schemas/frontmatter.schema.json** — Full JSON schema

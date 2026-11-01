@@ -238,22 +238,22 @@ tags: [tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8]  # ✅ 8 tags
 ## Next Steps
 
 1. **Explore the skill**: Run `skill create-agent` or `skill validate-frontmatter` in Claude Code
-2. **Read the full docs**: See [SKILL.md](../skill/SKILL.md) for comprehensive documentation
+2. **Read the full docs**: See [SKILL.md](../SKILL.md) for comprehensive documentation
 3. **Check examples**: Look at [EXAMPLES.md](./EXAMPLES.md) for real-world cases
 4. **Review standards**: See [VALIDATION_RULES.md](./VALIDATION_RULES.md) for all rules
 
 ## Resources
 
-- **skill/SKILL.md** — Complete skill documentation
-- **skill/prompts/** — Reusable prompts for common tasks
-- **skill/evals/** — Test cases and examples
+- **SKILL.md** — Complete skill documentation
+- **prompts/** — Reusable prompts for common tasks
+- **evals/** — Test cases and examples
 - **AGENTS.md** — Repository conventions
 - **CLAUDE.md** — Claude Code guidance
 - **.coderabbit.yml** — Code review configuration
 
 ## Getting Help
 
-- **Questions**: Check [SKILL.md](../skill/SKILL.md) first
+- **Questions**: Check [SKILL.md](../SKILL.md) first
 - **Issues**: Open GitHub issue with example frontmatter
 - **Suggestions**: Contribute via pull request
 - **Support**: Contact `@engineering-lead`

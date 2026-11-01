@@ -1,259 +1,94 @@
-# Frontmatter YAML Handler
+# LightSpeed Frontmatter
 
-A comprehensive YAML frontmatter validation and management **Claude skill** for WordPress block themes, WordPress block plugins, and LightSpeedWP projects.
+A Claude Code skill for creating, validating, repairing, and migrating YAML frontmatter. The repository root is the installed skill folder, with three supporting sub-skills for validation, repairs, and WordPress documentation metadata.
 
-**What it does:** Validates frontmatter syntax and structure, enforces the LightSpeedWP schema, automatically fixes common formatting errors, and provides CI/CD integration for automated validation on every commit.
+## Install and invoke
 
-**Who uses it:** Developers, designers, and CI/CD pipelines working with WordPress block themes/plugins or LightSpeedWP projects that need consistent metadata management.
-
-## Features
-
-- **YAML Validation** — Parse and validate frontmatter syntax against schema
-- **Schema Enforcement** — Validate against the LightSpeedWP unified frontmatter schema
-- **Format Checking** — Enforce consistent dates (ISO 8601), versions (semver), casing, and field types
-- **Automatic Fixing** — Correct date formats, version formatting, tag normalization, casing errors
-- **Date Synchronization** — Keep `last_updated` in sync while preserving `created_date`
-- **Repository Auditing** — Scan entire repositories for compliance issues and generate reports
-- **WordPress Support** — Dedicated validation for block themes, block plugins, patterns, and dependencies
-- **Comprehensive Testing** — 111 Jest unit tests + 40+ Bats integration tests (58% statement coverage)
-- **CI/CD Ready** — GitHub Actions workflows with semantic versioning enforcement and coverage reporting
-
-## Quick Start
-
-### Installation
+Clone the repository directly into Claude Code's personal skills directory:
 
 ```bash
-npm install
-npm run preflight  # Verify test setup
+git clone https://github.com/lightspeedwp/ls-frontmatter.git ~/.claude/skills/ls-frontmatter
+npm --prefix ~/.claude/skills/ls-frontmatter install --ignore-scripts
 ```
 
-### Validate Frontmatter
+If already checked out there, keep that checkout; do not clone another copy or copy just the legacy `skill/` directory. `--ignore-scripts` skips the npm prepare hook that installs Git hooks.
+
+In Claude Code:
+
+```text
+/ls-frontmatter validate docs/theme.md
+/ls-frontmatter preview fixes for docs/theme.md
+/ls-frontmatter fix frontmatter in docs/plugin.md
+/ls-frontmatter check WordPress metadata for this block theme
+```
+
+The parent loads the appropriate sub-skill instructions as needed. Nested files under `sub-skills/` are supporting workflows, not assumed to register their own slash commands. Automatic selection remains enabled through the parent's description.
+
+Claude's documented personal-skill location is `~/.claude/skills/<skill-name>/SKILL.md`. See [Anthropic, Extend Claude with skills](https://code.claude.com/docs/en/skills) (accessed 1 November 2026).
+
+## Structure
+
+```text
+ls-frontmatter/
+├── SKILL.md                       # Claude entrypoint: ls-frontmatter
+├── sub-skills/
+│   ├── frontmatter-validator/SKILL.md
+│   ├── frontmatter-fixer/SKILL.md
+│   └── wordpress-frontmatter/SKILL.md
+├── references/                    # Field conventions and reference schema
+├── scripts/                       # Bundled Node/Python helpers
+├── prompts/                       # Reusable task prompts and workflow pointers
+├── evals/                         # Maintainer evaluation scenarios
+├── docs/                          # Detailed documentation and examples
+├── __tests__/                     # Jest tests
+└── tests/                         # Bats tests
+```
+
+[SKILL.md](SKILL.md) is the canonical workflow entrypoint. Some historical governance/review configuration still refers to the former `skill/` paths; those paths do not define a second installation.
+
+## What is implemented
+
+- **Node validation:** frontmatter extraction, YAML parsing, required `file_type`/`name`/`description`, agent tools, and selected date/version/enum/array/tag checks.
+- **Repairs:** preview or apply selected metadata normalisations, followed by revalidation and diff review.
+- **Other documentation standards:** a Python helper implements selected GitHub Docs, Jekyll, and Project Standards checks.
+- **WordPress:** Claude manually inspects documentation metadata against relevant project files; the bundled validator does not perform WordPress cross-file checks.
+
+The Node validator does not load the canonical LightSpeed JSON Schema. A pass proves only its implemented checks. Do not apply its LightSpeed-specific requirements to native Claude skills or unrelated file formats. Detailed references describe conventions and may be broader than the implementation; confirm the target project's schema.
+
+The fixer can truncate tags after eight, strip tag characters, interpret slash dates as month/day/year, and remove YAML comments during reserialisation. Preview first and use targeted manual edits where needed. The audit helper parses whole files as YAML and skips hidden directories; enumerate requested Markdown files and validate them individually instead.
+
+## Run helpers outside Claude
+
+Node.js 18+ and the repository's npm dependencies are required. Replace the absolute target path below:
 
 ```bash
-# Validate a single file
-npm run validate path/to/file.md
-
-# Validate all changed files
-npm run validate:changed
-
-# Audit entire repository
-npm run audit
+node ~/.claude/skills/ls-frontmatter/scripts/validation/validate-frontmatter.js /absolute/project/docs/example.md --json
+node ~/.claude/skills/ls-frontmatter/scripts/fix/fix-frontmatter.js /absolute/project/docs/example.md --dry-run
 ```
 
-### Fix Frontmatter
+Each Node command accepts one file. The validator supports `--json` and `--dry-run`; the fixer supports `--dry-run` and `--summary`. Recursive/glob and WordPress cross-file flags are not implemented.
+
+The optional Python helper requires Python 3 and PyYAML in the selected environment:
 
 ```bash
-# Automatically fix frontmatter formatting errors
-npm run fix:agents path/to/file.md
-
-# Preview fixes without writing changes
-npm run fix:agents path/to/file.md -- --dry-run
-
-# Sync last_updated date with today's date
-npm run sync:dates path/to/file.md
+python3 ~/.claude/skills/ls-frontmatter/scripts/validate_frontmatter.py /absolute/project/docs/example.md --standard github-docs
 ```
 
-### Run Tests
+Other supported standards are `jekyll` and `project-standards`. See [helper details](scripts/README.md).
+
+## Development and references
 
 ```bash
-npm test              # Jest unit tests with coverage
-npm run test:watch    # Watch mode for development
-npm run test:bats     # Bats integration tests
-npm run test:all      # All tests combined
-npm run coverage      # Generate coverage report
+npm test                 # Jest tests and configured coverage gate
+npm run test:bats        # Bats integration tests, if Bats is installed
 ```
 
-## WordPress Block Theme Example
+Evaluation prompts under `evals/` are scenarios, not an automatically executed behavioural test suite. Test counts, coverage, and performance should come from current runs.
 
-Block themes store theme metadata and configuration in YAML frontmatter:
-
-```yaml
----
-file_type: theme
-name: Modern Agency
-description: A modern, performant block theme for agency websites
-version: v1.2.0
-created_date: 2024-01-15
-last_updated: 2026-10-30
-author: LightSpeedWP Agency
-owners:
-  - design-lead
-  - dev-lead
-status: active
-stability: stable
-mode: theme
-domain: awesome-copilot
-theme_type: block-theme
-block_patterns:
-  - hero
-  - testimonials
-  - contact-form
-tags: [block-theme, modern, agency, performance]
----
-
-# Modern Agency Theme
-...
-```
-
-## WordPress Block Plugin Example
-
-Block plugins define custom blocks with frontmatter metadata:
-
-```yaml
----
-file_type: plugin
-name: Custom Blocks Suite
-description: Collection of custom Gutenberg blocks for WordPress
-version: v2.0.1
-created_date: 2024-03-20
-last_updated: 2026-10-30
-author: Platform Engineering
-owners:
-  - plugin-maintainer
-status: active
-stability: stable
-mode: plugin
-domain: awesome-copilot
-plugin_type: block-plugin
-blocks:
-  - testimonial-card
-  - feature-box
-  - stats-counter
-  - cta-banner
-tags: [gutenberg, blocks, custom-blocks]
----
-
-# Custom Blocks Suite
-...
-```
-
-## Documentation
-
-- **[docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)** — Contribution guidelines and development workflow
-- **[docs/WORDPRESS_FRONTMATTER.md](./docs/WORDPRESS_FRONTMATTER.md)** — Comprehensive WordPress patterns and validation rules
-- **[docs/BLOCK_THEME_EXAMPLES.md](./docs/BLOCK_THEME_EXAMPLES.md)** — Block theme configuration examples
-- **[docs/BLOCK_PLUGIN_EXAMPLES.md](./docs/BLOCK_PLUGIN_EXAMPLES.md)** — Block plugin patterns and best practices
-- **[docs/TESTING.md](./docs/TESTING.md)** — Test setup and coverage enforcement
-- **[CHANGELOG.md](./CHANGELOG.md)** — Version history and release notes
-
-## Frontmatter Schema
-
-All frontmatter must follow the unified LightSpeedWP schema:
-
-### Required Fields
-
-| Field | Type | Format | Example |
-|-------|------|--------|---------|
-| `file_type` | string | `agent`, `theme`, `plugin`, `skill`, `prompt` | `theme` |
-| `name` | string | Title case | `Modern Agency Theme` |
-| `description` | string | Max 200 chars, actionable | `A modern, performant block theme` |
-| `version` | string | Semantic (v1.2.3 or 1.2.3) | `v1.2.0` |
-| `created_date` | string | ISO 8601 (YYYY-MM-DD) | `2024-01-15` |
-| `last_updated` | string | ISO 8601 (YYYY-MM-DD) | `2026-10-30` |
-| `author` | string | Team or person name | `Platform Engineering` |
-| `owners` | array | List of maintainers | `[design-lead, dev-lead]` |
-| `status` | string | `active`, `deprecated`, `draft` (lowercase) | `active` |
-| `stability` | string | `stable`, `beta`, `alpha` (lowercase) | `stable` |
-| `mode` | string | Functional type | `theme` |
-| `domain` | string | Project domain | `awesome-copilot` |
-| `tools` | array | Available tools (agents/skills only) | `[read, grep, edit]` |
-| `tags` | array | Max 8 tags, lowercase with hyphens | `[block-theme, modern]` |
-
-### Optional Fields (WordPress)
-
-| Field | Type | Use Case |
-|-------|------|----------|
-| `theme_type` | string | `block-theme`, `classic-theme` |
-| `plugin_type` | string | `block-plugin`, `classic-plugin` |
-| `block_patterns` | array | Patterns included in theme |
-| `blocks` | array | Custom blocks in plugin |
-| `supported_versions` | string | Min/max WordPress version |
-| `php_version` | string | Minimum PHP requirement |
-
-## Validation Rules
-
-### Dates
-- Format: `YYYY-MM-DD` (ISO 8601)
-- Example: `2026-10-30` ✅ vs `10/30/26` ❌
-
-### Versions
-- Format: Semantic versioning (`MAJOR.MINOR.PATCH`)
-- Optional `v` prefix: `v1.0.0` or `1.0.0`
-- Example: `v2.1.3` ✅ vs `version-2.1` ❌
-
-### Status & Stability
-- Must be **lowercase**
-- Example: `active` ✅ vs `ACTIVE` ❌
-
-### Tags
-- Maximum 8 tags per file
-- Must use lowercase with hyphens
-- Example: `[block-theme, modern, agency]` ✅
-
-### Owners
-- Must be an array, not a string
-- Example: `[design-lead]` ✅ vs `design-lead` ❌
-
-## CI/CD Integration
-
-The skill integrates with GitHub Actions for automated validation:
-
-```yaml
-# .github/workflows/test.yml
-- Validates on every push and pull request
-- Runs Jest with 95% coverage threshold
-- Runs Bats integration tests
-- Enforces semantic versioning
-- Reports results to Codecov
-```
-
-## API Reference
-
-### Validation Functions
-
-#### `validateFrontmatter(file)`
-Validate a single file's frontmatter.
-
-```bash
-node scripts/validation/validate-frontmatter.js path/to/file.md
-```
-
-#### `auditFrontmatter(directory)`
-Scan directory and report all frontmatter issues.
-
-```bash
-node scripts/audit/audit-frontmatter.js .
-```
-
-#### `fixFrontmatter(file)`
-Automatically correct common frontmatter formatting errors (dates, versions, tags, casing).
-
-```bash
-node scripts/fix/fix-frontmatter.js path/to/file.md [--dry-run] [--summary]
-```
-
-## Contributing
-
-This skill is actively maintained by the Platform Engineering team. Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature`
-3. Write tests for your changes
-4. Ensure all tests pass: `npm run test:all`
-5. Submit a pull request
-
-See [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) for detailed guidelines.
-
-## Support
-
-- **Issues** — Report bugs and request features via GitHub Issues
-- **Documentation** — Check [docs/](./docs/) for comprehensive guides
-- **Examples** — See [docs/BLOCK_THEME_EXAMPLES.md](./docs/BLOCK_THEME_EXAMPLES.md) and [docs/BLOCK_PLUGIN_EXAMPLES.md](./docs/BLOCK_PLUGIN_EXAMPLES.md)
-
-## License
-
-MIT License — See [LICENSE](./LICENSE) for details.
-
-## Changelog
-
-See [CHANGELOG.md](./CHANGELOG.md) for version history and release notes.
+- [Validator workflow](sub-skills/frontmatter-validator/SKILL.md)
+- [Repair workflow](sub-skills/frontmatter-fixer/SKILL.md)
+- [WordPress workflow](sub-skills/wordpress-frontmatter/SKILL.md)
+- [Field reference](references/frontmatter-schema.md)
+- [WordPress documentation conventions](references/wordpress-fields.md)
+- [Contribution guide](docs/CONTRIBUTING.md)
+- [Testing guide](docs/TESTING.md)
